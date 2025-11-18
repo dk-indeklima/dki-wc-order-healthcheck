@@ -51,13 +51,14 @@ class AdminPage {
         </tr></thead><tbody>';
 
         foreach ($results as $r) {
+            $order_url = admin_url('post.php?post=' . $r['order_id'] . '&action=edit');
             foreach ($r['issues'] as $i) {
                 echo '<tr>';
-                echo '<td>' . $r['order_id'] . '</td>';
-                echo '<td>' . $i['item_id'] . '</td>';
-                echo '<td>' . $i['field'] . '</td>';
-                echo '<td>' . $i['value'] . '</td>';
-                echo '<td>' . $i['rounded'] . '</td>';
+                echo '<td><a href="' . esc_url($order_url) . '" target="_blank">' . esc_html($r['order_id']) . '</a></td>';
+                echo '<td>' . esc_html($i['item_id']) . '</td>';
+                echo '<td>' . esc_html($i['field']) . '</td>';
+                echo '<td>' . esc_html($i['value']) . '</td>';
+                echo '<td>' . esc_html($i['rounded']) . '</td>';
                 echo '</tr>';
             }
         }
