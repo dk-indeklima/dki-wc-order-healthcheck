@@ -96,7 +96,7 @@ Item ID 0 indicates the issue is at the order level (order total, tax, shipping,
 
 ## Changelog 
 
-= 1.0.0 =
+### 1.0.0
 * Initial release
 * Scans 100 most recent orders
 * Detects precision issues in line items, order totals, and discounts
