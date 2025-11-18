@@ -12,7 +12,7 @@ class OrderScanner {
         }, array_keys(wc_get_order_statuses()));
 
         $orders = wc_get_orders([
-            'limit' => $args['limit'] ?? 50,
+            'limit' => $args['limit'] ?? 100,
             'orderby' => 'date',
             'order' => 'DESC',
             'status' => $statuses,
