@@ -33,10 +33,13 @@ class OrderScanner {
 
     protected function scan_item(int $item_id, WC_Order_Item $item): array {
         $issues = [];
-        $fields = [
-            '_line_total' => $item->get_total(),
-            '_line_subtotal' => $item->get_subtotal(),
-        ];
+        $fields = ['_line_total' => $item->get_total()];
+
+        // Only line items (products) have subtotal
+        if (method_exists($item, 'get_subtotal')) {
+            $fields['_line_subtotal'] = $item->get_subtotal();
+        }
+
         foreach ($fields as $k=>$v) {
             if ($this->too_many_decimals($v)) {
                 $issues[] = [
