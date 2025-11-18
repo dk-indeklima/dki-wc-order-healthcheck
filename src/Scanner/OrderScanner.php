@@ -25,7 +25,16 @@ class OrderScanner {
 
     protected function scan_order(WC_Order $order): array {
         $issues = [];
-        foreach ($order->get_items(['line_item','fee','shipping']) as $item_id=>$item) {
+        $items = $order->get_items(['line_item','fee','shipping']);
+
+        if (!is_array($items) && !is_iterable($items)) {
+            return $issues;
+        }
+
+        foreach ($items as $item_id=>$item) {
+            if (!$item instanceof \WC_Order_Item) {
+                continue;
+            }
             $issues = array_merge($issues, $this->scan_item($item_id,$item));
         }
         return $issues;
