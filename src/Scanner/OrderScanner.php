@@ -6,11 +6,16 @@ use WC_Order_Item;
 
 class OrderScanner {
     public function scan(array $args=[]): array {
+        // Get all statuses and strip 'wc-' prefix
+        $statuses = array_map(function($status) {
+            return str_replace('wc-', '', $status);
+        }, array_keys(wc_get_order_statuses()));
+
         $orders = wc_get_orders([
             'limit' => $args['limit'] ?? 50,
             'orderby' => 'date',
             'order' => 'DESC',
-            'status' => array_keys(wc_get_order_statuses()),
+            'status' => $statuses,
             'return' => 'objects',
             'type' => 'shop_order', // Exclude refunds
         ]);
