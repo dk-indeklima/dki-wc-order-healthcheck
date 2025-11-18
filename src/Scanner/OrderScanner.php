@@ -12,6 +12,7 @@ class OrderScanner {
             'order' => 'DESC',
             'status' => array_keys(wc_get_order_statuses()),
             'return' => 'objects',
+            'type' => 'shop_order', // Exclude refunds
         ]);
         $results = [];
         foreach ($orders as $order) {
